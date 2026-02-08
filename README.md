@@ -1,73 +1,28 @@
-# Claude Inbox
+# Claude Chat
 
-Queue tasks from anywhere (phone, tablet) for pennies. Process them with Claude Code on your flat-rate subscription.
-
-## How It Works
-
-```
-Phone / anywhere (API - pennies)        Your computer (flat rate)
-┌─────────────────────────┐              ┌─────────────────────┐
-│  claude_inbox.py        │              │  Claude Code         │
-│                         │   inbox.json │                      │
-│  task  → queue for later│  ─────────►  │  "what's in my inbox"│
-│  quick → instant answer │   (synced    │  reads + does work   │
-│          (Haiku, ~$0.001)│   via git)  │  (subscription)      │
-└─────────────────────────┘              └─────────────────────┘
-```
+A simple self-hosted web chat for Claude. Open it on your phone or computer.
 
 ## Setup
 
 ```bash
-pip install anthropic
+pip install anthropic flask
 export ANTHROPIC_API_KEY='sk-ant-...'
 ```
 
-## Usage
-
-### Queue tasks (from anywhere)
+## Run
 
 ```bash
-python claude_inbox.py task "Refactor auth module to use JWT"
-python claude_inbox.py task -high "Fix payment bug"
+python app.py
 ```
 
-### Quick questions (instant, low cost)
+Opens on:
+- **This computer:** http://localhost:5001
+- **Your phone:** http://YOUR_LOCAL_IP:5001 (printed when you start)
 
-```bash
-python claude_inbox.py quick "Python syntax for list comprehension?"
-```
+## Features
 
-### Manage inbox
-
-```bash
-python claude_inbox.py list          # show pending tasks
-python claude_inbox.py clear-done    # remove completed
-```
-
-### Process tasks (at your computer)
-
-```bash
-cd claude-inbox
-claude
-# then say: "what's in my inbox"
-```
-
-## Syncing via Git
-
-Add tasks remotely, then sync:
-
-```bash
-# From phone/remote: after adding tasks
-git add inbox.json && git commit -m "new tasks" && git push
-
-# At computer: before processing
-git pull
-```
-
-## Cost
-
-| Action | Model | Cost |
-|--------|-------|------|
-| Queue a task | none | Free |
-| Quick question | Haiku | ~$0.001 |
-| Process inbox | Claude Code | $0 (subscription) |
+- Streaming responses (words appear as Claude types)
+- Conversation memory within a session
+- Mobile-friendly, works on any phone browser
+- Token usage shown after each reply
+- "New chat" button to reset
